@@ -1,0 +1,61 @@
+<!-- Navegación lateral SM-->
+<div class="d-flex flex-column flex-shrink-0 bg-custom d-none d-sm-flex d-xl-none nav-bar-min">
+  <a href="/" class="d-block p-3 link-dark text-decoration-none">
+    <img src="/img/logo-ucm.png" class="px-2" alt="logo ucm">
+  </a>
+  <ul class="nav nav-pills nav-flush flex-column text-center">
+    <% if (user.rol === "Técnico") { %>
+    <li>
+      <a href="/avisos/entrantes" class="nav-link  py-3 border-bottom rounded-0 <%= ventana==='Entrantes' ? 'active' : '' %>">
+        <img src="/img/icons/moveToInbox_36dp_duotone.svg" alt="Entrantes">
+      </a>
+    </li>
+    <% } %> 
+    <li>
+      <a href="/avisos/mostrar?tipo=MisAvisos" class="nav-link  py-3 border-bottom rounded-0 <%= ventana==='MisAvisos' ? 'active' : '' %>">
+        <img src="/img/icons/notificationsActive_36_duotone.svg" alt="Mis avisos">
+      </a>
+    </li>
+    <li>
+      <a href="/avisos/mostrar?tipo=Historico" class="nav-link py-3 border-bottom rounded-0 <%= ventana==='Historico' ? 'active' : '' %>">
+        <img src="/img/icons/history_36dp_duotone.svg" alt="Historial">
+      </a>
+    </li>
+    <% if (user.rol === "Técnico") { %>
+    <li>
+      <a href="/user/todos" class="nav-link py-3 border-bottom rounded-0 <%= ventana==='Usuarios' ? 'active' : '' %>">
+        <img src="/img/icons/group_36dp_duotone.svg" alt="Usuarios">
+      </a>
+    </li>
+    <% } %> 
+  </ul>
+  <% if (user.rol !== "Técnico") { %>
+  <div class="dropdown d-flex justify-content-center py-3 border-bottom">
+    <button class="btn btn-outline-secondary rounded-pill p-0 btn-aviso" type="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <img src="/img/icons/add_36dp.svg" alt="añadir">
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark">
+      <li><button class="dropdown-item nuevo" id="Sugerencia"  type="button">Sugerencia / Queja</button></li>
+      <li><button class="dropdown-item nuevo" id="Incidencia"  type="button">Incidencia</button></li>
+      <li><button class="dropdown-item nuevo" id="Felicitación" type="button">Felicitación</button></li>
+    </ul>
+  </div>
+  <% } %> 
+  <hr class="mt-auto">
+  <div class="dropdown">
+    <a
+      class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle avatar"
+      id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="/img/userImages/avatar/<%=user.imagen%>_icon.jpg" alt="avatar" class="rounded-circle">
+    </a>
+    <ul class="dropdown-menu text-small shadow dropdown-menu-dark" aria-labelledby="dropdownUser3">
+      <li><p class="dropdown-item mostraPerfil"><strong><%= user.username %></strong></p></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item mostraPerfil">Perfil</a></li>
+      <li><a class="dropdown-item" href="/user/logout">Salir</a></li>
+    </ul>
+  </div>
+</div>

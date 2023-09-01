@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head'); %> 
+    <link rel="stylesheet" href="/css/comun.style.css">
+  </head>
+  <body>
+    <main class="container p-0 d-flex justify-content-center custom-error">
+      <div class="card bg-glass-light text-white col-11 col-lg-6">
+        <div class="card-body">
+          <div class="jumbotron">
+            <h1 class="display-4">ERROR <%= errMsg.tipo %></h1>
+            <p class="lead"><%= errMsg.mensaje %></p>
+            <% if(errMsg.stack) {%> 
+              <div class="card bg-glass text-white col-12">
+                <div class="card-body">
+                  <code class="text-primary">
+                    <%= errMsg.stack %>
+                  </code>
+                </div>
+              </div>   
+            <% } %>
+            <hr class="my-4">
+            <% if(errMsg.tipo === 500) {%> 
+              <p>Si el error persiste contacte con nuestros técnicos</p>
+            <% } %>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="/" role="button">Volver</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('partials/footer'); %>
+  </body>
+</html>

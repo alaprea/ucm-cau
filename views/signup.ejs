@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <%- include('partials/head'); %>
+</head>
+
+<body>
+  <div class="container-fluid d-flex justify-content-center align-items-center overflow-auto">
+    <% if(alertMsg){ %>
+      <div class="alert alert-<%=alertMsg.tipo%> alert-dismissible fade show mt-5 position-absolute top-0" role="alert">
+        <%- alertMsg.mensaje %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <%}%>
+        <div class="card bg-glass-light col-12 col-md-3">
+          <div class="card-header text-white d-flex justify-content-center">
+            <img class="py-3 img-fluid" src="/img/logo-ucm-completo.png" alt="logo ucm completo">
+          </div>
+          <div class="card-body">
+            <form action="/user/signup" method="post" enctype="multipart/form-data" class="form-floating" novalidate>
+              <div class="input-group has-validation mb-3">
+                <div class="form-floating <%= errList && errList.email ? 'is-invalid':''%>" id="validationEmail">
+                  <input type="email"
+                    class="form-control bg-transparent text-white <%= errList && errList.email ? 'is-invalid':''%>"
+                    name="email" id="inputEmail" placeholder="email@ucm.es" 
+                    <% if(errList && errList.email) {%> 
+                      value="<%= errList.email.value %>" 
+                    <% } else if(valores) {%>
+                      value="<%= valores.email %>"
+                    <% } %> >
+                    <label class="text-white" for="inputEmail">Email</label>
+                </div>
+                <div class="invalid-feedback" id="feedbackEmail">
+                  <%= errList && errList.email ? errList.email.msg : '' %>
+                </div>
+              </div>
+              <div class="input-group has-validation mb-3">
+                <div class="form-floating <%= errList && errList.username ? 'is-invalid':''%>" id="validationUsername">
+                  <input type="text"
+                    class="form-control bg-transparent text-white <%= errList && errList.username ? 'is-invalid':''%>"
+                    name="username" id="inputUsername" placeholder="Nombre de usuario" 
+                    <% if(errList && errList.username) {%>
+                      value="<%= errList.username.value %>" 
+                    <% } else if(valores) {%>
+                      value="<%= valores.username %>"
+                    <% } %> >
+                    <label class="text-white" for="inputUsername">Nombre para mostrar</label>
+                </div>
+                <div class="invalid-feedback" id="feedbackUsername">
+                  <%= errList && errList.username ? errList.username.msg : '' %>
+                </div>
+              </div>
+              <div class="input-group has-validation mb-3">
+                <div
+                  class="form-floating <%= errList && (errList.password || errList.passwordAgain) ? 'is-invalid':''%>" id="validationPassword">
+                  <input type="password"
+                    class="form-control bg-transparent text-white <%= errList && (errList.password || errList.passwordAgain) ? 'is-invalid':'' %>"
+                    name="password" id="inputPassword" placeholder="Contraseña">
+                  <label class="text-white" for="inputPassword">Contraseña</label>
+                </div>
+                <div class="invalid-feedback" id="feedbackPassword">
+                  <%= errList && errList.password ? errList.password.msg : '' %>
+                </div>
+              </div>
+              <div class="input-group has-validation mb-3">
+                <div
+                  class="form-floating <%= errList && (errList.password || errList.passwordAgain) ? 'is-invalid':''%>" id="validationPasswordAgain">
+                  <input type="password"
+                    class="form-control bg-transparent text-white <%= errList && (errList.password || errList.passwordAgain) ? 'is-invalid':''%>"
+                    name="passwordAgain" id="inputPasswordAgain" placeholder="Repetir contraseña">
+                  <label class="text-white" for="inputPasswordAgain">Repetir contraseña</label>
+                </div>
+                <div class="invalid-feedback" id="feedbackPasswordAgain">
+                  <%= errList && errList.passwordAgain ? errList.passwordAgain.msg : '' %>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input class="form-control form-control-lg text-white bg-transparent" id="customFile" type="file"
+                    name="image">
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <select class="form-select bg-transparent text-white" id="inputPerfil" name="perfil">
+                  <option class="bg-dark" value="Alumno" selected>Alumno</option>
+                  <option class="bg-dark" value="PAS">Personal de Administracion y Servicios (PAS)</option>
+                  <option class="bg-dark" value="PDI">Personal Docente e Investigador (PDI)</option>
+                  <option class="bg-dark" value="AA">Antiguo Alumno</option>
+                </select>
+                <label class="text-white" for="inputPerfil">Perfil Universitario</label>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col d-flex align-items-center justify-content-center d-none" id="form-pas">
+                  <input type="checkbox" class="checkmark me-2" id="inputTecnico" name="tecnico">
+                  <label for="inputTecnico" id="labelTecnico" class="text-white">Tecnico</label>
+                </div>
+                <div class="col">
+                  <div class="input-group has-validation d-none" id="form-tec">
+                    <div class="form-floating <%= errList && errList.nEmpleado ? 'is-invalid':''%>" id="validationEmpleado">
+                      <input type="email"
+                        class="form-control bg-transparent text-white <%= errList && errList.nEmpleado ? 'is-invalid':''%>"
+                        name="nEmpleado" id="inputEmpleado" placeholder="email@ucm.es"
+                        <% if(errList && errList.nEmpleado) {%>
+                          value="<%= errList.nEmpleado.value %>" 
+                        <% } else if(valores) {%>
+                          value="<%= valores.nEmpleado %>"
+                        <% } %> >
+                      <label class="text-white" for="inputEmpleado">N.Empleado</label>
+                    </div>
+                    <div class="invalid-feedback" id="feedbackEmpleado">
+                      <%= errList && errList.nEmpleado ? errList.nEmpleado.msg : '' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input class="btn btn-lg btn-dark col-12 text-center" value="Enviar">
+            </form>
+          </div>
+          <div class="card-footer d-flex flex-wrap justify-content-center">
+            <h5 class="display-8 font-weight-bold text-white me-2">¿Ya tienes una cuenta?</h5>
+            <h5><a class="text-white" href="/user/login"><strong>Inicia sesion</strong></a></h5>
+          </div>
+        </div>
+  </div>
+  <%- include('partials/footer'); %>
+  <script src="/scripts/formComun.js"></script>
+  <script src="/scripts/formsignup.js"></script>
+</body>
+
+</html>

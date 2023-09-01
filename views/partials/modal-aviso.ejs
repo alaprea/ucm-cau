@@ -1,0 +1,64 @@
+<div class="modal fade" id="avisoModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered text-white modal-xl">
+    <div class="modal-content bg-glass-light">
+      <div class="modal-header">
+        <div class="row d-flex col-12">
+          <h3 class="col-6 col-lg-auto" id="usuario"></h3>
+          <h3 class="col-6 col-lg-auto ms-auto">Aviso <span id="idAviso"></span>: <span id="grupo"></span></h3>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h5><strong>Fecha: </strong><span id="fechaAviso"></span></h5>
+        <h5><strong><span id="categoria"></span>: </strong><span id="tipo"></span></h5>
+        <h5 class="mb-4"><strong>Perfil: </strong><span id="perfil"></span></h5>
+        <div class="card bg-glass">
+          <div class="card-header"><h5>Observaciones:</h5></div>
+          <div class="card-body">
+            <p id="observaciones"></p>
+          </div>
+        </div>
+        <div class="card bg-glass mt-4" id="mostrarComentario">
+          <div class="card-header"><h5>Comentarios del técnico:</h5></div>
+          <div class="card-body">
+            <p id="avisoCerrado" class="text-warning"><strong>Este aviso ha sido eliminado por el técnico <span id="cerradoPor"></span> debido a:</strong></p>
+            <p id="comentario"></p>
+          </div>
+        </div>
+        <form action="" id="formAsignar" method="post">
+          <div class="mt-4 row col-12">
+            <label for="inputPassword" class="col-auto col-form-label"><strong>Asignar técnico</strong></label>
+            <div class="col-5">
+              <select name="tecnico" id="inputTecnicos" class="form-control bg-dark text-white">
+                <option selected>Elige uno...</option>
+              </select>
+            </div>
+            <input class="col-auto btn btn-primary" type="submit" value="Asignar">
+          </div>
+        </form>
+        <form action="" id="formCerrar" method="post">
+          <div class="form-floating">
+            <textarea name="comentario" class="form-control bg-transparent text-white mt-3" rows="3" placeholder="Cerrar aviso" id="cerrarTextArea" required></textarea>
+            <label for="cerrarTextArea">Razón por la que se cierra el aviso</label>
+          </div>
+          <input type="hidden" name="ventana" value="<%= ventana %>">
+        </form>
+        <% if(user.rol === 'Técnico' && ventana==='MisAvisos'){%>
+          <form action="" id="formResponder" method="post">
+            <div class="form-floating">
+              <textarea name="comentario" class="form-control bg-transparent text-white mt-3" rows="3" placeholder="Cerrar aviso" id="responderTextArea" required></textarea>
+              <label for="responderTextArea">Comentario sobre el aviso</label>
+            </div>
+            <input type="hidden" name="ventana" value="<%= ventana %>">
+          </form>
+        <%}%>
+      </div>
+      <div class="modal-footer">
+        <% if(user.rol === 'Técnico' && ventana==='MisAvisos'){%>
+          <button class="btn btn-primary" id="btnResponder" type="submit" form="formResponder">Terminar aviso</button>
+        <%}%>
+        <button class="btn btn-danger" id="btnCerrar" type="submit" form="formCerrar">Cerrar el aviso</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="form-row col-12">
+  <div class="form-group col-md-4" id="getionSelect"> 
+    <label for="inputGestion">Gestión</label>
+    <select id="inputGestion" class="form-control bg-dark text-light">
+      <option selected value="0"> Elige una...</option>
+      <option>Sugerencia</option>
+      <option>Queja</option>
+    </select>
+  </div>
+  <div class="form-group col-md-4" id="categoriaSelect">
+    <label for="inputCategoria">Categoría</label>
+    <select id="inputCategoria" class="form-control bg-dark text-light input-custom">
+      <option selected value="0">Elige uno...</option>
+      <% listaCat.forEach(categoria => { %>
+        <option value="<%= categoria %>"> <%= categoria %> </option>
+      <% }) %> 
+  </select>
+  </div>
+  <div class="form-group col-md-4" id="tipoSelect">
+    <label for="inputTipos">Tipo</label>
+    <select name="tipo" id="inputTipos" class="form-control bg-dark text-light input-custom">
+      <option selected value="0">Elige uno...</option>
+    </select>
+  </div>
+</div>
+<div class="form-group col">
+  <label for="inputObservaciones">Observaciones</label>
+  <textarea name="observaciones" class="form-control bg-dark text-light input-custom" id="inputObservaciones" rows="5" required></textarea>
+</div>
+<input type="hidden" name="aviso" value="">
+
+<script>
+  let tipos = <%- JSON.stringify(tipos) %>;
+
+  function updateForm(grupo){
+    resetAll();
+    
+    if(grupo==='Incidencia'){
+      $('#getionSelect').addClass('d-none');
+      $('#categoriaSelect').removeClass('d-none');
+      $('#inputCategoria').prop('disabled',false);
+      $('[name="aviso"]').val('Incidencia');
+    }
+    else if(grupo==='Sugerencia'){
+      $('#getionSelect').removeClass('d-none');
+      $('#categoriaSelect').removeClass('d-none');
+      $('#inputGestion').prop('disabled',false);
+    }
+    else{
+      $('#getionSelect').addClass('d-none');
+      $('#categoriaSelect').addClass('d-none');
+      $('#inputTipos').prop('disabled',false);
+      actualizarTipos('Felicitación');
+      $('[name="aviso"]').val('Felicitación');
+    }
+
+    $('#nuevoModal').modal('show')
+  }
+
+  function actualizarTipos(categoria){
+    $('#inputTipos').empty().append('<option selected value="0">Elige uno...</option>');
+    tipos[categoria].forEach(t => {
+      $('#inputTipos').append($('<option>', {
+        value: t.id,
+        text: t.tipo,
+      }));
+    });
+  }
+  
+  function resetAll(){
+    resetSelect($('#inputGestion'));
+    resetSelect($('#inputTipos'));
+    resetSelect($('#inputCategoria'));
+    resetObservaciones();
+  }
+
+  function resetSelect(select){
+    select.val(0);
+    select.prop('disabled',true);
+  }
+
+  function resetObservaciones() {
+    $('#inputObservaciones').prop('disabled',true);
+    $('#inputObservaciones').val('').change();
+    $('#btnNuevo').prop('disabled',true);
+  }
+
+  $('#inputGestion').change(function(){
+    if(this.selectedIndex){
+      $('[name="aviso"]').val(this.value);
+      $('#inputCategoria').prop('disabled',false);
+    }
+    else{
+      resetSelect($('#inputTipos'));
+      resetSelect($('#inputCategoria'));
+      resetObservaciones();
+    }
+      
+  });
+
+  $('#inputCategoria').change(function(){
+    if(this.selectedIndex){
+      $('#inputTipos').prop('disabled',false);
+      actualizarTipos(this.value);
+    }
+    else {
+      resetSelect($('#inputTipos'));
+      resetObservaciones();
+    }
+  });
+
+  $('#inputTipos').change(function(){
+    if(this.selectedIndex){
+      $('#inputObservaciones').prop('disabled',false);
+    }
+    else
+      resetObservaciones();
+  });
+  
+  $('#inputObservaciones').bind('input propertychange', function() {
+    $('#btnNuevo').prop('disabled',true);
+    if(this.value.length){
+      $('#btnNuevo').prop('disabled',false);
+    }
+  });
+
+  /*
+  $('#nuevoModal').on('hidden.bs.modal', function () {
+    //reset cuando se cierra la modal
+  });
+  */
+</script>

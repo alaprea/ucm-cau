@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <%- include('partials/head'); %>
+</head>
+
+<body>
+  <div class="container-fluid d-flex justify-content-center align-items-center overflow-auto">
+    <% if(alertMsg){ %>
+      <div class="alert alert-<%=alertMsg.tipo%> alert-dismissible fade show mt-5 position-absolute top-0" role="alert">
+        <%- alertMsg.mensaje %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <%}%>
+        <div class="card bg-glass-light col-12 col-md-3">
+          <div class="card-header text-white d-flex justify-content-center">
+            <img class="py-3 img-fluid" src="/img/logo-ucm-completo.png" alt="logo ucm completo">
+          </div>
+          <div class="card-body">
+            <form action="/user/login" method="post" enctype="multipart/form-data" class="form-floating" novalidate>
+              <div class="input-group has-validation mb-3">
+                <div class="form-floating <%= errList && errList.email ? 'is-invalid':''%>" id="validationEmail">
+                  <input type="email" class="form-control bg-transparent text-white <%= errList && errList.email ? 'is-invalid':''%>" name="email"
+                    id="inputEmail" placeholder="email@ucm.es" 
+                    <% if(errList && errList.email) {%> 
+                      value="<%= errList.email.value %>" <% } 
+                    else if(valores) {%>
+                      value="<%= valores.email %>"
+                    <% } %> >
+                  <label class="text-white" for="inputEmail">Email</label>
+                </div>
+                <div class="invalid-feedback" id="feedbackEmail">
+                  <%= errList && errList.email ? errList.email.msg : '' %>
+                </div>
+              </div>
+              <div class="input-group has-validation mb-5">
+                <div class="form-floating <%= errList && errList.password ? 'is-invalid':''%>" id="validationPassword">
+                  <input type="password" class="form-control bg-transparent text-white <%= errList && errList.password ? 'is-invalid':''%>" name="password"
+                    id="inputPassword" placeholder="Contraseña" <% %> >
+                  <label class="text-white" for="inputPassword">Contraseña</label>
+                </div>
+                <div class="invalid-feedback" id="feedbackPassword">
+                  <%= errList && errList.password ? errList.password.msg : ''  %>
+                </div>
+              </div>
+              <input class="btn btn-lg btn-dark col-12 text-center" type="submit" value="Enviar">
+            </form>
+          </div>
+          <div class="card-footer d-flex flex-wrap justify-content-center">
+            <h5 class="display-8 font-weight-bold text-white me-2">¿No tienes una cuenta?</h5>
+            <h5><a class="text-white" href="/user/signup"><strong>Crea una nueva</strong></a></h5>
+          </div>
+        </div>
+  </div>
+  <%- include('partials/footer'); %>
+  <script src="/scripts/formComun.js"></script>
+  <script>
+    $("form").submit(function (event) {
+      if(validarMailPass())
+        event.preventDefault();
+      else
+        return;
+    });
+  </script>
+</body>
+
+</html>

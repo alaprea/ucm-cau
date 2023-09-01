@@ -1,0 +1,29 @@
+<div class="modal fade" id="userModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-glass-light">
+      <div class="modal-header d-flex justify-content-center">
+        <img id="normalImg" class="rounded-circle img-thumbnail" src="" alt="">
+      </div>
+      <div class="modal-body">
+        <div class="col text-white">
+          <h5><strong>Fecha de creacion: </strong><span id="fecha"></span></h5>
+          <h5><strong>Perfil: </strong><%=user.rol%></h5>
+          <h5><strong>Email: </strong><span id="email"></span></h5>
+          <h5><strong>Nombre para mostrar: </strong><%=user.username%></h5>
+          <hr>
+          <% if(user.rol === "Usuario") { %> 
+          <h6>Avisos realizados: <span id="nAvisos"></span></h6>
+          <% } else { %>
+          <h6>Avisos gestionados: <span id="nAvisos"></span></h6>
+          <% } %>
+          <h6>Incidencias: <span id="nIncidencias"></span></h6>
+          <h6>Sugerencias: <span id="nSugerencias"></span></h6>
+          <h6>Felicitaciones: <span id="nFelicitaciones"></span></h6>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

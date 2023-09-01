@@ -1,0 +1,59 @@
+<!-- Navegación lateral XL-->
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-custom nav-bar d-none d-xl-flex">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <img src="/img/logo-ucm.png" class="px-2" alt="logo ucm">
+    <span class="fs-4">UCM-CAU</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column">
+    <% if (user.rol === "Técnico") { %>
+    <li class="nav-item">
+      <a href="/avisos/entrantes" class="nav-link text-white d-flex <%= ventana==='Entrantes' ? 'active' : '' %>">
+        <img class="me-1" src="/img/icons/moveToInbox_24dp.svg" alt="Entrantes">
+        Entrantes
+      </a>
+    </li>
+    <% } %>
+    <li>
+      <a href="/avisos/mostrar?tipo=MisAvisos" class="nav-link text-white <%= ventana==='MisAvisos' ? 'active' : '' %> d-flex">
+        <img class="me-1" src="/img/icons/notificationsActive_24dp.svg" alt="Mis avisos">
+        Mis Avisos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/avisos/mostrar?tipo=Historico" class="nav-link text-white <%= ventana==='Historico' ? 'active' : '' %> d-flex">
+        <img class="me-1" src="/img/icons/history_24dp.svg" alt="Historial">
+        Historico
+      </a>
+    </li>
+    <% if (user.rol === "Técnico") { %>
+    <li>
+      <a href="/user/todos" class="nav-link text-white d-flex <%= ventana==='Usuarios' ? 'active' : '' %>">
+        <img class="me-1" src="/img/icons/group_24dp.svg" alt="Usuarios">
+        Usuarios
+      </a>
+    </li>
+    <% } %>
+  </ul>
+  <% if (user.rol !== "Técnico") { %>
+  <hr>
+  <div class="dropdown d-flex justify-content-center">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <img src="/img/icons/add_24dp.svg" alt="aviso"> Nuevo aviso
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark">
+      <li><button class="dropdown-item nuevo" id="Sugerencia" type="button">Sugerencia / Queja</button></li>
+      <li><button class="dropdown-item nuevo" id="Incidencia" type="button">Incidencia</button></li>
+      <li><button class="dropdown-item nuevo" id="Felicitación" type="button">Felicitación</button></li>
+    </ul>
+  </div>
+  <% } %>
+  <hr class="mt-auto">
+  <div class="d-flex align-items-center">
+    <img src="/img/userImages/avatar/<%=user.imagen%>_icon.jpg" alt="avatar" class="rounded-circle me-2 mostraPerfil" role="button">
+    <strong class="mostraPerfil" role="button"><%=user.username%></strong>
+    <a href="/user/logout" class="btn btn-outline-danger d-flex justify-content-center ms-auto p-2 rounded-circle"><img
+        src="/img/icons/logout_16dp.svg" alt="salir"></a>
+  </div>
+</div>

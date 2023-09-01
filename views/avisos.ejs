@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head'); %> 
+    <link rel="stylesheet" href="/css/content.style.css">
+  </head>
+  <body>
+    <main class="container-fluid p-0 d-flex flex-nowrap">
+      <!-- Navegación -->
+      <%- include('partials/nav-sm'); %>
+      <%- include('partials/nav-xl'); %> 
+
+      <!-- Avisos -->
+      <div class="container-fluid p-0 d-flex flex-column align-items-center text-white overflow-auto lista-avisos">
+        <%- include('partials/search'); %>
+        <% if(avisos.length === 0) {%>
+          <div class="display-1 col-10 sin-aviso">No se encontraron avisos</div>
+        <% } %>
+        <% avisos.forEach(aviso => { %> 
+          <%- include('partials/aviso', { aviso } ); %>
+        <% }) %>
+        <% if(alertMsg){ %>
+          <div class="alert alert-<%=alertMsg.tipo%> alert-dismissible fade show mt-5 position-absolute top-0" role="alert">
+            <%- alertMsg.mensaje %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <%}%>
+        <div class="position-absolute top-0 pt-5" id="alerta-dinamica"></div>
+      </div>
+      <!-- Nuevo aviso -->
+      <% if(user.rol!=='Técnico') {%>
+        <div class="modal fade" id="nuevoModal" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered text-white modal-xl">
+            <div class="modal-content bg-glass-light">
+              <div class="modal-header">
+                <h2>Nuevo aviso</h2>
+              </div>
+              <div class="modal-body">
+                <form action="/avisos/nuevoAviso" method="post" id="nuevoForm">
+                  
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" id="btnNuevo" type="submit" form="nuevoForm">Crear aviso</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </main>
+    <!-- Modal de usuario -->
+    <%- include('partials/modal-user'); %>
+    <!-- Modal aviso -->
+    <%- include('partials/modal-aviso'); %>
+    <%- include('partials/footer'); %>
+    <script src="/scripts/alertas.js"></script>
+    <script src="/scripts/modalUsuario.js"></script>
+    <script src="/scripts/modalMostrarAviso.js"></script>
+    <% if(user.rol!=='Técnico') {%>
+      <script src="/scripts/modalNuevo.js"></script>
+    <% } %>
+  </body>
+</html>

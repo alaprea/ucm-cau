@@ -1,0 +1,43 @@
+
+.nav-bar {
+  width: 13rem !important;
+}
+
+.nav-bar,
+.nav-bar-min {
+  z-index: 2;
+}
+
+.search {
+  height: 4.2rem;
+  z-index: 1;
+}
+
+.nav-link:hover {
+  background-color: #0b0f1a !important;
+}
+
+.btn-aviso {
+  border-width: 3px;
+}
+
+.search-select {
+  width: 0em !important;
+}
+
+.lista-avisos .aviso:nth-child(2), .lista-usuarios {
+  margin-top: 5rem !important;
+}
+
+.btn-accion {
+  width:max-content;
+}
+
+.input-custom:disabled {
+  background-color: #52525e !important;
+  color: rgb(172, 172, 172) !important;
+}
+
+.sin-aviso {
+  margin-top: 5rem !important;
+}

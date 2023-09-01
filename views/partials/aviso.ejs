@@ -1,0 +1,63 @@
+<div class="card my-2 bg-dark col-11 col-xl-9 col-xxl-8  aviso" role="button" id="<%= aviso.id %>">
+  <div class="row">
+    <% if(aviso.categoria === 'Incidencia'){%>
+      <div class="col-auto mx-2 d-flex justify-content-center align-items-center bg-danger rounded-start"><img
+          src="/img/icons/reportProblem_24dp.svg" alt="Incidencia">
+      </div>
+    <% } else if(aviso.categoria === 'Felicitación'){%>
+      <div class="col-auto mx-2 d-flex justify-content-center align-items-center bg-success rounded-start"><img
+        src="/img/icons/favorite_24dp.svg" alt="Felicitación">
+      </div>
+    <% } else { %>
+      <div class="col-auto mx-2 d-flex justify-content-center align-items-center bg-warning rounded-start"><img
+        src="/img/icons/lightbulb_24dp.svg" alt="Sugerencia o Queja">
+      </div>
+    <% } %>
+    <div class="col d-none d-lg-block">
+      <div class="row">
+        <div class="col-lg-auto py-3">
+          <h6><strong><small>Fecha</small></strong></h6>
+          <p class="m-0"><%= aviso.fecha %></p>
+        </div>
+        <div class="col-lg-8 py-3">
+          <h6><strong><small>Observaciones</small></strong></h6>
+          <p class="m-0"><%= aviso.observaciones_reducido %></p>
+        </div>
+        <div class="col-lg-2 py-3">
+          <h6><strong><small><%=user.rol === "Técnico" ? 'Acción' : 'Técnico' %></small></strong></h6>
+          <% if(user.rol === "Técnico"){ %>
+            <% if(ventana === "Entrantes"){ %><a href="#" class="btn btn-success btn-sm d-flex btn-accion aligns-items-center my-1 asignar <%= (ventana==='Entrantes' && aviso.tecnico) ? 'disabled' : '' %>" ><img class="me-1" src="/img/icons/assignmentTecnico_18dp.svg" alt="Asignar">Asignar</a><% } %>
+            <% if(ventana !== "Entrantes"){ %><a class="btn btn-primary btn-sm d-flex btn-accion aligns-items-center my-1" ><img class="me-1" src="/img/icons/visibilityAviso_18dp.svg" alt="ver aviso">Ver aviso</a><% } %>   
+            <% if(ventana !== "Historico" && ventana!=="Busqueda"){ %><a class="btn btn-danger btn-sm d-flex btn-accion aligns-items-center my-1 eliminar <%= (ventana==='Entrantes' && aviso.tecnico) ? 'disabled' : '' %> <%= (ventana==='Entrantes' && aviso.tecnico) ? 'disabled' : '' %>"><img class="me-1" src="/img/icons/deleteAviso_18dp.svg" alt="Eliminar">Eliminar</a><% } %> 
+          <% } else { %>
+            <p class="m-0"><%= aviso.tecnico || 'Sin asignar' %></p>
+          <% } %>    
+        </div>
+      </div>
+    </div>
+    <div class="col d-block d-lg-none">
+      <div class="row">
+        <div class="col-auto py-3">
+          <h6><strong><small>Fecha</small></strong></h6>
+          <p class="m-0"><%= aviso.fecha %></p>
+        </div>
+        <div class="col py-3">
+          <h6><strong><small><%=user.rol === "Técnico" ? 'Acción' : 'Técnico' %></small></strong></h6>
+          <% if(user.rol === "Técnico"){ %>
+            <% if(ventana === "Entrantes"){ %><a href="/" class="btn btn-success btn-sm d-flex btn-accion aligns-items-center my-1 asignar <%= (ventana==='Entrantes' && aviso.tecnico) ? 'disabled' : '' %>" ><img class="me-1" src="/img/icons/assignmentTecnico_18dp.svg" alt="Asignar">Asignar</a><% } %>
+            <% if(ventana !== "Entrantes"){ %><a href="/" class="btn btn-primary btn-sm d-flex btn-accion aligns-items-center my-1" ><img class="me-1" src="/img/icons/visibilityAviso_18dp.svg" alt="ver aviso">Ver aviso</a><% } %>   
+            <% if(ventana !== "Historico"){ %><a href="#" class="btn btn-danger btn-sm d-flex btn-accion aligns-items-center my-1 eliminar <%= (ventana==='Entrantes' && aviso.tecnico) ? 'disabled' : '' %>" ><img class="me-1" src="/img/icons/deleteAviso_18dp.svg" alt="Eliminar" >Eliminar</a><% } %> 
+          <% } else { %>
+            <p class="m-0"><%= aviso.tecnico || 'Sin asignar' %></p>
+          <% } %>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 py-3">
+            <h6><strong><small>Observaciones</small></strong></h6>
+            <p class="m-0"><%= aviso.observaciones_reducido %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

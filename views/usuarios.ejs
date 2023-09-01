@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head'); %>
+    <link rel="stylesheet" href="/css/content.style.css">
+  </head>
+  <body>
+    <main class="container-fluid p-0 d-flex flex-nowrap">
+      <!-- Navegación -->
+      <%- include('partials/nav-sm'); %>
+      <%- include('partials/nav-xl'); %> 
+
+      <!-- Avisos -->
+      <div class="container-fluid p-0 d-flex flex-column align-items-center text-white overflow-auto">
+        <%- include('partials/search'); %>
+        <% if(users.length === 0) {%>
+          <div class="display-1 col-10 sin-aviso">No se encontraron usuarios</div>
+        <% } %>
+        <% if(alertMsg){ %>
+          <div class="alert alert-<%=alertMsg.tipo%> alert-dismissible fade show mt-5 position-absolute top-0" role="alert">
+            <%- alertMsg.mensaje %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <%}%>
+        <div class="position-absolute top-0 pt-5" id="alerta-dinamica"></div>
+        <!-- Cards usuarios -->
+        <div class="col-10 col-xl-10 d-flex justify-content-center flex-wrap lista-usuarios">
+          <% users.forEach( user => { %>
+            <div class="card bg-dark col-12 col-lg-5 m-2">
+              <div class="card-header">
+                <%= user.username %>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h6><strong><small>Fecha creación</small></strong></h6>
+                    <p class="m-0"><%= user.fecha %></p>
+                  </div>
+                  <div class="col">
+                    <h6><strong><small>Rol</small></strong></h6>
+                    <p class="m-0"><%= user.rol %></p>
+                  </div>
+                </div>
+              </div>
+              <% if(ventana!=='Busqueda'){%>
+                <div class="card-footer">
+                  <% if(user.activo){ %>
+                    <a href="/user/baja/<%= user.id %>" class="btn btn-danger btn-sm d-flex btn-accion"><img class="me-1" src="/img/icons/personRemove_18dp.svg" alt="baja">Eliminar</a>
+                  <% } else { %>
+                    <a href="/user/alta/<%= user.id %>" class="btn btn-success btn-sm d-flex btn-accion"><img class="me-1" src="/img/icons/personAdd_18dp.svg" alt="alta">Dar de alta</a>
+                  <% } %>
+                </div>
+              <%}%>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+    <!-- Modal de usuario -->
+    <%- include('partials/modal-user'); %>
+    <%- include('partials/footer'); %>
+    <script src="/scripts/alertas.js"></script>
+    <script src="/scripts/modalUsuario.js"></script>
+  </body>
+</html>

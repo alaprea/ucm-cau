@@ -1,0 +1,43 @@
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top right,
+      #223489,
+      #0e121b 45%);
+  background-repeat: no-repeat;
+  
+}
+
+.container-fluid {
+  height: 100vh;
+  /* max-height: 100vh; */
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.bg-custom {
+  background-color: #111727;
+}
+
+.bg-glass {
+  background: rgba(17, 23, 39, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(17, 23, 39, 0.17);
+}
+
+.bg-glass-light {
+  background-color: rgba(9, 12, 51, 0.13);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+.alert{
+  z-index: 2003;
+}
+
+.custom-error {
+  margin-top: 5em;
+}

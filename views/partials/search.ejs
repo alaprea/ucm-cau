@@ -1,0 +1,27 @@
+<!-- Barra de busqueda -->
+<div class="card bg-glass mt-0 mb-3 d-flex flex-row align-items-center justify-content-center col-12 rounded-0 search position-fixed flex-nowrap">
+  <img src="/img/logo-ucm.png" class="ms-3 d-sm-none" alt="logo ucm">
+  <form action="/avisos/buscar" method="get" class="col-8 mx-auto" id="search-form">
+    <div class="input-group">
+      <input type="text" class="form-control text-white bg-transparent" name="texto" placeholder="Buscar avisos">
+      <% if (user.rol === "Técnico") { %>
+        <div class="input-group-text bg-transparent text-white">
+          <input class="form-check-input mt-0" type="checkbox" name="usuario" id="user-checkbox">
+          <label class="form-check-label border-left ms-2" for="user-checkbox">Usuario</label>
+        </div>
+        <script>
+          const form = document.querySelector('#search-form');
+          const checkbox = document.querySelector('#user-checkbox');
+          checkbox.onchange = function(){
+            if(checkbox.checked)
+              form.action = '/user/buscar'
+            else 
+              form.action = '/avisos/buscar'
+          }
+        </script>
+      <% } %>
+      <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+    </div>
+  </form>
+  
+</div>
